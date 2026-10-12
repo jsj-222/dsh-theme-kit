@@ -1,7 +1,7 @@
 {
-  "name": "dsh-cream-pink",
+  "name": "dsh-theme-kit",
   "version": "1.0.0",
-  "description": "My Cream Pink theme for DeepSeek Harness",
+  "description": "Configurable theme kit for DeepSeek Harness (multi-preset, light/dark)",
   "type": "module",
   "main": "./index.js",
   "exports": {

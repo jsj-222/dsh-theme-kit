@@ -1,7 +1,7 @@
-// Cream Pink Theme for DeepSeek Harness
+// Theme Kit for DeepSeek Harness
 // Version: 1.0.0
 
-export const name = "cream-pink-theme";
+export const name = "theme-kit";
 
 // 主题颜色集中管理，方便以后修改
 // const colors = {
