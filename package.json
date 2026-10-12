@@ -1,16 +1,26 @@
 {
   "name": "dsh-theme-kit",
-  "version": "1.0.0",
-  "description": "Configurable theme kit for DeepSeek Harness (multi-preset, light/dark)",
+  "version": "2.0.0",
+  "description": "Configurable theme kit for the DeepSeek Harness web client: multi-preset palettes with light/dark, applied via ctx.theme.overrideTokens (no build step).",
+  "private": true,
   "type": "module",
   "main": "./index.js",
   "exports": {
     ".": "./index.js",
+    "./client": "./client.js",
     "./package.json": "./package.json"
   },
   "dsh": {
+    "manifestVersion": 1,
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme"
+      ]
     }
-  }
+  },
+  "license": "MIT"
 }
