@@ -45,18 +45,41 @@ mycolor: {
 - 原生支持 `{ light, dark }` 双值 → **暗色自动正确**（旧版注入法在暗色下会被官方 `body[data-ds-dark-theme]` 反压，主题整体失效）；
 - `ctx.effect` 绑定生命周期 → 插件卸载/热重载**自动还原**，不留残留。
 
-## 接线（换机器/重装时）
+## 安装
 
-1. 插件目录放到本地，例如 `D:\AI\dsh-theme-kit`；
-2. profile 的 `package.json`：
-   - `dependencies` 加 `"dsh-theme-kit": "link:D:/AI/dsh-theme-kit"`
-   - `dsh.profile.bundles` 加 `"dsh-theme-kit"`
-3. 在 profile 目录建软链（Windows 用 junction 即可，无需管理员）：
-   ```js
-   require('fs').symlinkSync('D:/AI/dsh-theme-kit',
-     'C:/Users/<你>/.dsh/profiles/web/node_modules/dsh-theme-kit', 'junction');
-   ```
-4. 重启 `dsh web`；验证：`dsh --profile web --dump-config | grep -A2 theme-kit`
+**方式一：从 GitHub 装（推荐，插件市场会显示 GitHub 地址）**
+
+```jsonc
+// profiles/web/package.json
+{
+  "dependencies": { "dsh-theme-kit": "github:jsj-222/dsh-theme-kit" },
+  "dsh": { "profile": { "bundles": ["dsh-theme-kit"] } }
+}
+```
+
+```bash
+cd ~/.dsh/profiles/web && pnpm install   # 拉取仓库副本到 node_modules
+```
+
+> 国内网络需给 git 配代理：`git config --global http.proxy http://127.0.0.1:7897`
+> （pnpm 拉 git 依赖走的是 git，不是 npm registry，所以配 git 的代理即可。）
+
+**方式二：本地 link 开发（改源码即时生效，不落 GitHub）**
+
+```jsonc
+"dependencies": { "dsh-theme-kit": "link:D:/AI/dsh-theme-kit" }
+```
+
+```js
+// Windows 建 junction，无需管理员
+require('fs').symlinkSync('D:/AI/dsh-theme-kit',
+  require('path').join(require('os').homedir(), '.dsh/profiles/web/node_modules/dsh-theme-kit'),
+  'junction');
+```
+
+**两种方式的取舍**：`github:` 装的是仓库快照副本 —— 改代码要 `commit → push → pnpm update dsh-theme-kit` 才生效；`link:` 直连本地目录，保存即生效，但插件市场会标成「本地开发」。开发期用 link，发布/日常使用用 github。
+
+**验证**：`dsh --profile web --dump-config | grep -A2 theme-kit` → 看到 `# == dsh-theme-kit` 即接入成功；之后**重启 `dsh web`**（新增客户端 bundle 不会热插）。
 
 ## 路线图
 
