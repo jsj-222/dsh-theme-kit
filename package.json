@@ -1,0 +1,16 @@
+{
+  "name": "dsh-cream-pink",
+  "version": "1.0.0",
+  "description": "My Cream Pink theme for DeepSeek Harness",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
